@@ -4,6 +4,7 @@
 
 #include "curl/curl.h"
 #include "myhtml/api.h"
+#include "parson/parson.h"
 
 char* load_file(char const* path)
 {
@@ -76,7 +77,6 @@ int main(int argc, char const *argv[])
 
     if(collection) {
         for(size_t i = 0; i < collection->length; i++) {
-            // myhtml_tree_print_node(tree, collection->list[i], stdout);
             myhtml_tree_attr_t *gets_attr = myhtml_attribute_by_key(collection->list[i], "href", strlen("href"));
             const char *attr_char = myhtml_attribute_value(gets_attr, NULL);
             collection->list[i] = myhtml_node_child(collection->list[i]);
@@ -84,7 +84,7 @@ int main(int argc, char const *argv[])
             const char *text = myhtml_node_text(collection->list[i], NULL);
             puts(text);
         }
-        
+            
         printf("Total found: %zu\n", collection->length);
     }
     myhtml_collection_destroy(collection);
