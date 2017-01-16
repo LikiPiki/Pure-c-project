@@ -13,7 +13,7 @@
 
 void requestToFile(char *filename, char *url) {
     CURL *curl;
-    puts(url);
+    // puts(url);
     FILE *fp;
     CURLcode res;
     curl = curl_easy_init();                                                                                                                                                                                                                                                           
@@ -62,16 +62,14 @@ projectarray parseJsonProject(char *pureJsonFile) {
 }
 
 projectarray getProjects(char *token, char *filename) {
-	char *beginrequest = "https://todoist.com/API/v7/sync?token=";
-    char *endrequest  = "&sync_token=\'*\'&resource_types=[\"projects\"]";
-    int strLen = strlen(token) + strlen(beginrequest) + strlen(endrequest);
-    char target[strLen];
-    strcat(target, beginrequest);
-    strcat(target, token);
-    strcat(target, endrequest);
-    char *str = target;
-    printf("%s\n", str);
-    // requestToFile(filename, str);
-    requestToFile(filename, "https://todoist.com/API/v7/sync?token=11698c95ca5b3426b88e0ce4a5822d7cd43ecbe4&sync_token=\'*\'&resource_types=[\"projects\"]");
+	const char *beginrequest = "https://todoist.com/API/v7/sync?token=";
+    const char *endrequest  = "&sync_token=\'*\'&resource_types=[\"projects\"]";
+    int strLen = strlen(token) + strlen(beginrequest) + strlen(endrequest) + 1;
+    char request[strLen];
+    sprintf(request, "%s%s%s", beginrequest, token, endrequest);
+    // printf("%s\n", request);
+    // request = sprintf("%s%s%s", beginrequest, token, endrequest);
+    // printf("REQUEST is %s\n", request);
+    requestToFile(filename, request);
     return parseJsonProject(filename);
 }

@@ -60,7 +60,6 @@ int main(int argc, char const *argv[])
     char *html = load_file("page.html");
     char *attr_value = "post__title_link";
     char *token = "11698c95ca5b3426b88e0ce4a5822d7cd43ecbe4";
-    char *TOKEN = "11698c95ca5b3426b88e0ce4a5822d7cd43ecbe4";
     char *filename = "todo.txt";
 
 
