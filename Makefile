@@ -1,4 +1,4 @@
-SRC = main.c parson/parson.c
+SRC = main.c parson/parson.c todoist.c
 FILE_NAME = main
 SLIBS = lib/libmyhtml_static.a
 FLAGS = -lcurl

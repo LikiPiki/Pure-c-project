@@ -4,7 +4,8 @@
 
 #include "curl/curl.h"
 #include "myhtml/api.h"
-#include "parson/parson.h"
+
+#include "todoist.h"
 
 char* load_file(char const* path)
 {
@@ -58,6 +59,9 @@ int main(int argc, char const *argv[])
 
     char *html = load_file("page.html");
     char *attr_value = "post__title_link";
+    char *token = "11698c95ca5b3426b88e0ce4a5822d7cd43ecbe4";
+    char *TOKEN = "11698c95ca5b3426b88e0ce4a5822d7cd43ecbe4";
+    char *filename = "todo.txt";
 
 
     myhtml_t* myhtml = myhtml_create();
@@ -80,9 +84,8 @@ int main(int argc, char const *argv[])
             myhtml_tree_attr_t *gets_attr = myhtml_attribute_by_key(collection->list[i], "href", strlen("href"));
             const char *attr_char = myhtml_attribute_value(gets_attr, NULL);
             collection->list[i] = myhtml_node_child(collection->list[i]);
-            puts(attr_char);
             const char *text = myhtml_node_text(collection->list[i], NULL);
-            puts(text);
+            printf("%s  %s\n", attr_char, text);
         }
             
         printf("Total found: %zu\n", collection->length);
@@ -91,5 +94,15 @@ int main(int argc, char const *argv[])
     myhtml_tree_destroy(tree);
     myhtml_destroy(myhtml);
 
-	return 0;
+    // todoist here
+    projectarray proj;
+    proj = getProjects("11698c95ca5b3426b88e0ce4a5822d7cd43ecbe4", "todo.txt");
+    todoproject *projects = proj.projects;
+    for (int i = 0; i < proj.size; i++)
+    {
+        printf("%s %ld\n", projects[i].name, projects[i].id);
+    }
+
+    free(proj.projects);
+    return 0;
 }
