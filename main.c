@@ -34,9 +34,9 @@ void loadWebPageToFile(char *url, char *filename) {
     CURL *curl;
     FILE *fp;
     CURLcode res;
-    curl = curl_easy_init();                                                                                                                                                                                                                                                           
+    curl = curl_easy_init();
     if (curl)
-    {   
+    {
         fp = fopen(filename,"wb");
         curl_easy_setopt(curl, CURLOPT_URL, url);
         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, NULL);
@@ -44,7 +44,7 @@ void loadWebPageToFile(char *url, char *filename) {
         res = curl_easy_perform(curl);
         curl_easy_cleanup(curl);
         fclose(fp);
-    }   
+    }
 }
 
 struct hrefItem
@@ -59,7 +59,7 @@ int main(int argc, char const *argv[])
 
     char *html = load_file("page.html");
     char *attr_value = "post__title_link";
-    char *token = "11698c95ca5b3426b88e0ce4a5822d7cd43ecbe4";
+    char *token = "token"; // token here
     char *filename = "todo.txt";
 
 
